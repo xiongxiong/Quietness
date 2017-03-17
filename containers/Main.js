@@ -10,16 +10,10 @@ import Input from '../components/Input'
 import Title from '../components/Title'
 
 export const store = createStore(reducer, undefined, autoRehydrate())
+persistStore(store, {storage: AsyncStorage})
 const mapStateToProps = (state) => ({todos: state.todos})
 
 class Main extends Component {
-    componentWillMount() {
-        persistStore(store, {
-            storage: AsyncStorage
-        }, () => {
-            this.setState({rehydrated: true})
-        })
-    }
     onAddTodo = (text) => {
         const {dispatch} = this.props
         dispatch(actionCreators.add(text))
